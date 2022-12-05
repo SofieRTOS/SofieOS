@@ -104,18 +104,13 @@ extern int call_cnt;
 int real_main() {
 	sofie_set_protected_stack();
 	int begin = tick;
+	int duration;
   uint8_t pri_a[32], pub_a[64], pri_b[32], pub_b[64], shared1[64], shared2[64];
   curve_point pub;
   bignum256 s;
 
   ecdsa_generate_keypair(&nist256p1, pri_a, pub_a);
-
-  int duration = tick - begin;
-  uprintf("After generate first keypair: %d s\r\n", duration);
-
   ecdsa_generate_keypair(&nist256p1, pri_b, pub_b);
-  duration = tick - begin;
-   uprintf("After generate second keypair: %d s\r\n", duration);
   // pri_a * pub_b
   ecdsa_read_pubkey(&nist256p1, pub_b, &pub);
   bn_read_be(pri_a, &s);
@@ -123,8 +118,6 @@ int real_main() {
   bn_write_be(&pub.x, shared1);
   bn_write_be(&pub.y, shared1 + 32);
 
-  duration = tick - begin;
-  uprintf("After pri_a * pub_b: %d s\r\n", duration);
   // pri_b * pub_a
   ecdsa_read_pubkey(&nist256p1, pub_a, &pub);
   bn_read_be(pri_b, &s);
@@ -132,8 +125,6 @@ int real_main() {
   bn_write_be(&pub.x, shared2);
   bn_write_be(&pub.y, shared2 + 32);
 
-  duration = tick - begin;
-  uprintf("After pri_b * pub_a: %d s\r\n", duration);
   // assert they are equal
   for (int i = 0; i != 64; ++i) {
 	  if(shared1[i] != shared2[i]) {
@@ -193,6 +184,7 @@ int real_main() {
 
 //	for (i = 0; i < 3000; i++) if (arr[i] != i) uprintf("NOT EQUAL!\r\n");
 	uprintf("%d, %d\r\n", end - begin, call_cnt);
+	for(;;);
 	sofie_restore_protected_stack();
 	return 0;
 }
