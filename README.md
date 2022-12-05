@@ -7,9 +7,9 @@ This is the repository of source code of SofieOS: Memory-safe Real-time Operatin
 
 Environment Setting
 ---
-To buld and run SofieOS, you need to download FreedomStudio and unzip it to D:\FreedomStudio drive on windows. You can also unzip to other location and manually set the location in .settings/freedomstudio.preference.prefs.
+To buld and run SofieOS, you need to download FreedomStudio and unzip it to D:\FreedomStudio drive on windows. You can also unzip to other location and manually set the location in `.settings/freedomstudio.preference.prefs`.
 
-Then you can open FreedomStudio, and click File/Open Projects from File System,
+Then you can open FreedomStudio, and click `File/Open Projects` from File System,
 then choose the directory of this repository.
 
 You also need to buy a Sifive Hifive1-revb board to run SofieOS.
@@ -34,6 +34,8 @@ You need to follow the instructions mentioned in the paper to develop your appli
 The entry of the first task should be `int real_main()`.
 
 You may also need to change `USER_STACK_SIZE` and `USER_HEAP_SIZE` in `kernel/macros.h`.
+
+Then you can build and run your application from FreedomStudio, i.e., connect your Hifive1-revb board to your computer with USB and right-click the project, then hit `Run As/Sifive JLink Launch`.
 
 To run benchmark
 ---
