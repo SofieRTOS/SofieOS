@@ -1,0 +1,7 @@
+bsp.dir=bsp
+device-tree-tools-path=
+eclipse.preferences.version=1
+freedomstudio.toolchain.path=D\:\\FreedomStudio\\SiFive\\riscv64-unknown-elf-toolchain-10.2.0-2020.12.8
+metal-source-path=freedom-metal
+uart.xlat.crlf=false
+venv.path=venv
