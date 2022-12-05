@@ -7,7 +7,7 @@ This is the repository of source code of SofieOS: Memory-safe Real-time Operatin
 
 Environment Setting
 ---
-To buld and run SofieOS, you need to download FreedomStudio and unzip it to D:\FreedomStudio drive on windows. You can also unzip to other location and manually set the location in `.settings/freedomstudio.preference.prefs`.
+To build and run SofieOS, you need to download FreedomStudio and unzip it to D:\FreedomStudio drive on windows. You can also unzip to other location and manually set the location in `.settings/freedomstudio.preference.prefs`.
 
 Then you can open FreedomStudio, and click `File/Open Projects` from File System,
 then choose the directory of this repository.
