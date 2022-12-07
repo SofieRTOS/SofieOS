@@ -16,7 +16,6 @@ extern void trampoline();
 extern void trapret();
 int current_privileges;
 int tick = 0;
-int call_cnt = 0;
 
 void trap_initialization() {
 	current_privileges = PRIV_MACHINE;
@@ -97,7 +96,6 @@ void syscall() {
 }
 
 void store_access_fault_handler() {
-	++call_cnt;
 	uint32_t access_addr = r_mtval();
 	struct Task* task = get_current_task();
 

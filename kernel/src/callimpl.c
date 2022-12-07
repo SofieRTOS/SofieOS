@@ -7,6 +7,7 @@
 #include "task.h"
 
 extern int tick;
+int call_cnt = 0;
 
 static uint32_t
 argraw(int n)
@@ -59,6 +60,7 @@ uint32_t sys_dump_pmp() {
 }
 
 uint32_t sys_set_protected_stack_top() {
+	++call_cnt;
 	struct Task* task = get_current_task();
 
 	if (task->trapframe.fp == task->stacks->fp && task->trapframe.sp >= (uint32_t)task->stacks->data
