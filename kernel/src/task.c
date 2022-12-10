@@ -214,6 +214,7 @@ void task_expand_stack() {
 	current_task->usp_bottom = (uint32_t) new_stack;
 	current_task->usp_top = (uint32_t) new_stack + allocated_size;
 	SET_USER_STACK_JUST_ALLOCATED(current_task->state, 1);
+	clear_buffer_access(current_task->trapframe.fp);
 }
 
 void task_yield() {

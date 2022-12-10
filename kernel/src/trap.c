@@ -165,6 +165,7 @@ void store_access_fault_handler() {
 			&& access_addr < task->trapframe.fp) {
 //		printf("CASE 4: MOVE FP TO THE CURRENT STACK BOTTOM.\r\n");
 		task->trapframe.fp = task->stacks->data + task->stacks->length;
+		clear_buffer_access(task->trapframe.fp);
 		return;
 	}
 
