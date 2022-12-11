@@ -1,4 +1,4 @@
-#define BENCH_QSORT
+#define BENCH_ECDH
 
 #ifdef BENCH_NUMBER_POWER
 #include <stdio.h>
@@ -175,14 +175,14 @@ void sort(short arr[], int l, int r) {
 	sofie_restore_protected_stack();
 }
 
-short arr[3000];
+short arr[1000];
 
 int real_main() {
 	sofie_set_protected_stack();
 	int i, term, sum = 0;
-	for (i = 0; i < 3000; i++) arr[i] = sofie_rand();
+	for (i = 0; i < 1000; i++) arr[i] = sofie_rand();
 	int begin = tick;
-	sort(arr, 0, 3000-1);
+	sort(arr, 0, 1000-1);
 	int end = tick;
 
 //	for (i = 0; i < 3000; i++) if (arr[i] != i) uprintf("NOT EQUAL!\r\n");
