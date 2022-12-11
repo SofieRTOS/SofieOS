@@ -1,4 +1,4 @@
-#define BENCH_ECDH
+#define BENCH_QSORT
 
 #ifdef BENCH_NUMBER_POWER
 #include <stdio.h>
@@ -63,6 +63,7 @@ int real_main(void)
 #include <sofie.h>
 extern int tick;
 extern int call_cnt;
+extern int miss;
 
 int fib(int n) {
 	sofie_set_protected_stack();
@@ -82,7 +83,7 @@ int real_main(void)
 	int a = 1, b = 1, c = 2;
 	int f = fib(n);
 	int end = tick;
-	uprintf("%d, %d\r\n", end - begin, call_cnt);
+	uprintf("%d, %d, %d\r\n", end - begin, call_cnt, miss);
 	for(;;);
 	sofie_restore_protected_stack();
 	return 0;
@@ -100,6 +101,7 @@ int real_main(void)
 
 extern int tick;
 extern int call_cnt;
+extern int miss;
 
 int real_main() {
 	sofie_set_protected_stack();
@@ -128,12 +130,12 @@ int real_main() {
   // assert they are equal
   for (int i = 0; i != 64; ++i) {
 	  if(shared1[i] != shared2[i]) {
-	     printf("NOT EQUAL!\r\n");
+	     uprintf("NOT EQUAL!\r\n");
 	  }
   }
 
   duration = tick - begin;
-  uprintf("time = %d, call = %d\r\n", duration, call_cnt);
+  uprintf("time = %d, call = %d, miss = %d\r\n", duration, call_cnt, miss);
   for(;;);
   sofie_restore_protected_stack();
   return 0;
@@ -146,6 +148,7 @@ int real_main() {
 #include <sofie.h>
 extern int tick;
 extern int call_cnt;
+extern int miss;
 
 void sort(short arr[], int l, int r) {
 	sofie_set_protected_stack();
@@ -172,18 +175,18 @@ void sort(short arr[], int l, int r) {
 	sofie_restore_protected_stack();
 }
 
-short arr[1000];
+short arr[3000];
 
 int real_main() {
 	sofie_set_protected_stack();
 	int i, term, sum = 0;
-	for (i = 0; i < 1000; i++) arr[i] = sofie_rand();
+	for (i = 0; i < 3000; i++) arr[i] = sofie_rand();
 	int begin = tick;
-	sort(arr, 0, 1000-1);
+	sort(arr, 0, 3000-1);
 	int end = tick;
 
 //	for (i = 0; i < 3000; i++) if (arr[i] != i) uprintf("NOT EQUAL!\r\n");
-	uprintf("%d, %d\r\n", end - begin, call_cnt);
+	uprintf("%d, %d, %d\r\n", end - begin, call_cnt, miss);
 	for(;;);
 	sofie_restore_protected_stack();
 	return 0;
@@ -248,6 +251,7 @@ static const struct lfs_config config = {
 static lfs_t lfs;
 extern int tick;
 extern int call_cnt;
+extern int miss;
 
 int real_main() {
   sofie_set_protected_stack();
@@ -264,7 +268,7 @@ int real_main() {
   assert(lfs_file_open(&lfs, &f, "test", LFS_O_RDONLY) == 0);
   assert(lfs_file_read(&lfs, &f, buffer, 10) == 10);
   int end = tick;
-  uprintf("%s, duration: %d, call: %d\r\n", buffer, end - start, call_cnt);
+  uprintf("%s, duration: %d, call: %d, miss: %d\r\n", buffer, end - start, call_cnt, miss);
   for(;;);
   sofie_restore_protected_stack();
   return 0;
